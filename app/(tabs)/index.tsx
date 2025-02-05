@@ -1,13 +1,15 @@
 import { View, ScrollView, Image, Text, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { BellIcon } from "react-native-heroicons/outline";
+import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import Categories from "../../components/Categories";
 
 const HomeScreen = () => {
+  const [activeCategory, setActiveCategory] = useState('lunch')
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="dark" />
@@ -51,7 +53,14 @@ const HomeScreen = () => {
           style={{fontSize: hp(1.7)}}
           className="flex-1 text-base mb-1 pl-3 tracking-wider"
            />
+           <View className=" bg-white rounded-full p-3">
+            <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color={'gray'}/>
+           </View>
         </View>
+        <View>
+          <Categories activeCategory={activeCategory} setActiveCategory={setActiveCategory}/>
+        </View>
+
       </ScrollView>
     </View>
   );
