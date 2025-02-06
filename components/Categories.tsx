@@ -14,10 +14,10 @@ type Category = {
 type CategoriesProps = {
   activeCategory: string;
   categories: Category[]
-  setActiveCategory: React.Dispatch<React.SetStateAction<string>>;
+  handleChangeCategory: (category: string) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = ({ categories, activeCategory, setActiveCategory }) => {
+const Categories: React.FC<CategoriesProps> = ({ categories, activeCategory, handleChangeCategory }) => {
 
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()} >
@@ -34,7 +34,7 @@ const Categories: React.FC<CategoriesProps> = ({ categories, activeCategory, set
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => setActiveCategory(cat.strCategory)}
+                onPress={() => handleChangeCategory(cat.strCategory)}
                 className='flex items-center space-y-1'
               >
                 <View className={"rounded-full p-[6px] " + activeButtonClass}>

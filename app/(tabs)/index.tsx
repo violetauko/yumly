@@ -8,7 +8,7 @@ import {
 } from "react-native-responsive-screen";
 import Categories from "../../components/Categories";
 import axios from 'axios'
-import Recipes from "@/components/Recipes";
+import Recipes from "../../components/Recipes";
 
 const HomeScreen = () => {
 
@@ -17,8 +17,14 @@ const HomeScreen = () => {
     getRecipes()
   }, [])
 
-  const [activeCategory, setActiveCategory] = useState('Beef')
+  const handleChangeCategory = (category:string)=>{
+    getRecipes(category)
+    setActiveCategory(category)
+    setMeals([])
 
+  }
+
+  const [activeCategory, setActiveCategory] = useState('Beef')
   const [categories, setCategories] = useState([])
   const [meals, setMeals] = useState([])
 
@@ -92,7 +98,7 @@ const HomeScreen = () => {
           </View>
         </View>
         <View>
-          {categories.length > 0 && <Categories categories={categories} activeCategory={activeCategory} setActiveCategory={setActiveCategory} />}
+          {categories.length > 0 && <Categories categories={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
         </View>
 
         <View>
