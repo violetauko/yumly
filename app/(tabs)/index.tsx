@@ -14,11 +14,13 @@ const HomeScreen = () => {
 
   useEffect(() => {
     getCategories()
+    getRecipes()
   }, [])
 
   const [activeCategory, setActiveCategory] = useState('Beef')
 
   const [categories, setCategories] = useState([])
+  const [meals, setMeals] = useState([])
 
   const getCategories = async () => {
     try {
@@ -29,7 +31,18 @@ const HomeScreen = () => {
     } catch (err) {
       console.log('error')
     }
-
+    
+  }
+  const getRecipes = async (category='Beef') => {
+    try {
+      const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+      if (response && response.data) {
+        setMeals(response.data.meals)
+      }
+    } catch (err) {
+      console.log('error')
+    }
+    
   }
   return (
     <View className="flex-1 bg-white">
@@ -83,7 +96,7 @@ const HomeScreen = () => {
         </View>
 
         <View>
-        <Recipes/>
+        <Recipes meals={meals}/>
         </View>
 
       </ScrollView>
