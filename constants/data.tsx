@@ -1,4 +1,4 @@
-export const categoryData = [
+export const mealData = [
     {
       "name": "Breakfast",
       "image": "https://media.istockphoto.com/id/924498372/photo/mix-spices-on-round-metal-plate-coriander-seeds-ground-red-pepper-salt-black-pepper-rosemary.jpg?b=1&s=612x612&w=0&k=20&c=HRe4Wn_Je4mOKTIuJKl2bPCxAE7pGKIuf3mzeVgctmw=",
