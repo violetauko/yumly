@@ -102,7 +102,7 @@ const HomeScreen = () => {
         </View>
 
         <View>
-        <Recipes meals={meals}/>
+        <Recipes meals={meals} categories={categories}/>
         </View>
 
       </ScrollView>
