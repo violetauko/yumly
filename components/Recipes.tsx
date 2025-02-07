@@ -5,7 +5,6 @@ import {
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import MasonryList from '@react-native-seoul/masonry-list';
-import { mealData } from '../constants/data';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Categories from './Categories';
 import Loading from './Loading';
@@ -19,7 +18,7 @@ interface MealData {
 
 const Recipes = ({ meals, categories }: { 
     meals: { id: string; image: string }[]; 
-    categories: string[]; // Adjust type based on actual structure
+    categories: string[];
   }) =>  {
     return (
         <View className='mx-4 space-y-3'>
