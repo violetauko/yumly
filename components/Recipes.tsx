@@ -37,7 +37,7 @@ const Recipes = ({ meals, categories }: {
                             numColumns={2}
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item, i }) => (
-                                <RecipeCard item={item as MealData} index={i} router={router} />
+                                <RecipeCard item={item as MealData} index={i} />
                             )}
                             onEndReachedThreshold={0.1}
                         />
@@ -49,15 +49,17 @@ const Recipes = ({ meals, categories }: {
 }
 
 export const RecipeCard = ({ item, index }: {item: {strMeal: string; strMealThumb: string
- }; index: number; router;
+ }; index: number;
 }): JSX.Element => {
+    const router = useRouter();
     
     let isEven = index % 2 === 0
     return (
         <Animated.View entering={FadeInDown.delay(index * 100).duration(600).springify().damping(12)}>
             <Pressable style={{ width: '100%', paddingTop: '5%', paddingLeft: isEven ? 0 : 8, paddingRight: isEven ? 8 : 0 }}
             className='flex justify-center mb-4 space-y-1'
-            onPress={() => router.push('/(screens)/')}
+            onPress={() => router.push({ pathname: "/recipeDetail", params: { strMealThumb: item.strMealThumb } })}
+
             >
                 <Image
                     source={{ uri: item.strMealThumb }}
