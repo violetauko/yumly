@@ -20,8 +20,8 @@ const index = () => {
         setTimeout(() => ringPadding2.value = withSpring(ringPadding2.value + hp(5.5)), 300);
 
         const timeout = setTimeout(() => {
-            router.push("/(tabs)"); // Navigate to the home screen
-        }, 3000); // 3-second delay
+            router.push("/(tabs)"); 
+        }, 3000);
 
         return () => clearTimeout(timeout);
     }, [])
