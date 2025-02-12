@@ -15,6 +15,7 @@ interface MealData {
     idMeal: string;
     strMealThumb: string;
     strMeal: string
+    strArea:string
     
 }
 
