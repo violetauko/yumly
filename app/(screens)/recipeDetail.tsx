@@ -12,30 +12,23 @@ import axios from "axios";
 import Loading from "../../components/Loading"
 
 
-interface Meal {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-  [key: string]: string | undefined; // ✅ Allows dynamic ingredient properties
-}
-
 const RecipeDetail = () => {
   const [isFavourite, setIsFavourite] = useState(false)
   const router = useRouter();
-  const [meal, setMeal] = useState<Meal | null>(null);
+  const [meal, setMeal] = useState(null);
   const [loading, setLoading] = useState(true)
   const { idMeal } = useLocalSearchParams<{ idMeal: string }>();
   const { strMealThumb } = useLocalSearchParams<{ strMealThumb: string }>();
-
+  
 
   useEffect(() => {
     if (idMeal) {
       getMealData(idMeal);
     }
-  }, [idMeal]);
+  }, [idMeal]); 
 
 
-  const getMealData = async (id: any) => {
+  const getMealData = async (id:any) => {
     try {
       const response = await axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       if (response && response.data) {
@@ -47,69 +40,70 @@ const RecipeDetail = () => {
     }
   }
 
-  const ingredientsIndexes = (meal: any) => {
-    if (!meal) return [];
-
-    let indexes: number[] = [];
-
-    for (let i = 1; i <= 20; i++) {
-      if (meal[`strIngredient${i}`]) { // ✅ Correct property name
+  const ingedientsIndexes = (meal:any)=>{
+    if(!meal) return [];
+    let indexes = [];
+    for(let i:any = 1; i<=20; i++){
+      if(meal['stringIngedient' +i]){
         indexes.push(i);
       }
     }
-
-    return indexes;
+    return indexes
   }
   return (
-    <ScrollView
-      className="bg-white flex-1"
+    <ScrollView 
+      className="bg-white flex-1" 
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ padding: 30 }}
     >
       <StatusBar style="dark" />
 
       <View className="flex-row justify-center">
-        <Image source={{ uri: strMealThumb }}
-          style={{ width: wp(98), height: hp(50), borderRadius: 53 }} />
+      <Image source={{ uri: strMealThumb }} 
+      style={{ width: wp(98), height: hp(50), borderRadius: 53 }} />
 
       </View>
-      <View className="w-full absolute flex-row justify-between items-center pt-14">
+      <View className="w-full absolute flex-row justify-between items-center pt-14"> 
         <TouchableOpacity onPress={() => router.back()} className="p-2 rounded-full ml-5 bg-white">
-          <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color='#fbbf24' />
+          <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color='#fbbf24'/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setIsFavourite(!isFavourite)} className="p-2 rounded-full bg-white">
-          <HeartIcon size={hp(3.5)} strokeWidth={4.5} color={isFavourite ? 'red' : "gray"} />
+          <HeartIcon size={hp(3.5)} strokeWidth={4.5} color={isFavourite? 'red': "gray"}/>
         </TouchableOpacity>
       </View>
 
-      <View className="px-4 flex justify-between space-y-4 pt-8">
-        <View className=" space-y-2">
-          <Text style={{ fontSize: hp(3) }} className=" font-bold text-neutral-700">
-            {meal?.strMeal}
-          </Text>
-          <Text style={{ fontSize: hp(3) }} className=" font-bold text-neutral-700">
-            {meal?.strArea}
-          </Text>
-        </View>
-      </View>
-      <View className="space-y-4">
-        <Text style={{ fontSize: hp(2.5) }} className="font-bold flex-1 text-neutral-700">
-          Ingedients
-        </Text>
-        <View className="space-y-2 ml-3">
-          {meal && ingredientsIndexes(meal).map(i => ( // ✅ Ensure `meal` is not null
-            <View key={i} className="flex-row space-x-4">
-              <View style={{ height: hp(1.5), width: hp(1.5) }}
-                className="bg-amber-300 rounded-full"
-              />
-              <View className="flex-row space-x-2">
-                <Text>{meal[`strMeasure${i}`]}</Text> {/* ✅ Corrected template syntax */}
-              </View>
+          <View className="px-4 flex justify-between space-y-4 pt-8">
+            <View className=" space-y-2">
+              <Text style={{fontSize: hp(3)}} className=" font-bold text-neutral-700">
+                {meal?.strMeal}
+              </Text>
+              <Text style={{fontSize: hp(3)}} className=" font-bold text-neutral-700">
+                {meal?.strArea}
+              </Text>
             </View>
-          ))}
-        </View>
+          </View>
+          <View className="space-y-4">
+            <Text style={{fontSize: hp(2.5)}} className="font-bold flex-1 text-neutral-700">
+              Ingedients
+            </Text>
+            <View className="space-y-2 ml-3">
+              {
+                ingedientsIndexes(meal).map(i=>{
+                  return (
+                    <View key={i} className="flex-row space-x-4">
+                      <View style={{height: hp(1.5), width: hp(1.5)}} 
+                      className="bg-amber-300 rounded-full" />
+                      <View className="flex-row space-x-2">
+                        <Text>{meal['strMeasure'+]}</Text>
+                      </View>
+                    </View>
+                  )
+                }
 
-      </View>
+                )
+              }
+            </View>
+          </View>
     </ScrollView>
   );
 };
