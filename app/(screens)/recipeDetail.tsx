@@ -12,10 +12,17 @@ import axios from "axios";
 import Loading from "../../components/Loading"
 
 
+interface Meal {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  strArea: string;
+}
+
 const RecipeDetail = () => {
   const [isFavourite, setIsFavourite] = useState(false)
   const router = useRouter();
-  const [meal, setMeal] = useState(null);
+  const [meal, setMeal] = useState<Meal | null>(null);
   const [loading, setLoading] = useState(true)
   const { idMeal } = useLocalSearchParams<{ idMeal: string }>();
   const { strMealThumb } = useLocalSearchParams<{ strMealThumb: string }>();
